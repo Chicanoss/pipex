@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2021/12/21 16:37:22 by rgeral           ###   ########.fr       */
+/*   Updated: 2021/12/21 18:43:25 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,61 @@
 #include <sys/wait.h>
 
 
-char	*i_shall_pass(char	**env)
+char	**i_shall_path(char	**env)
 {
 	int	i;
+	int	j;
 	char	**result;
 
 	i = 0;
+	j = 0;
 	while(env[i])
 	{
 		if(ft_memcmp(env[i], "PATH=", 5) == 0)
 		{
 			result = ft_split(&env[i][5], ':');
-			printf("%s\n", result[0]);
-
-			return(&env[i][5]);
+			while(result[j])
+			{
+				result[j] = ft_strjoin(result[j], "/");
+				j++;
+			}
+			return(result);
 		}
 		i++;
 	}
 	return(NULL);
+}
 
+void	*care_child(char	**path, char	**argv, char	**env)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+	char	**args;
+
+	i = 1;
+	j = 0;
+	
+	while (path[j])
+	{	
+		args = ft_split(argv[i], ' ');
+		tmp = ft_strjoin(path[j], args[0]);
+		free(args[0]);
+		args[0] = tmp;
+		execve(args[0], args, env);
+		j++;
+	}
+	return(NULL);
+		
 }
 
 int main(int	argc, char	*argv[], char	*env[])
 {
-	char	**args;
-	char	*tmp;
 	int		i;
-	char	*path;
+	char	**path;
 
 	i = 1;
-	path = i_shall_pass(env);
-	printf("%s\n", path);
+	path = i_shall_path(env);
 	while (i < argc)
 	{
 		pid_t pid = fork();
@@ -61,18 +85,9 @@ int main(int	argc, char	*argv[], char	*env[])
 			return EXIT_FAILURE;
 		}
 		else if(pid == 0)
-		{
-			args = ft_split(argv[i], ' ');
-			tmp = ft_strjoin("/bin/", args[0]);
-			free(args[0]);
-			args[0] = tmp;
-			execve(args[0], args, env);
-		}
+			care_child(path, argv, env);
 		else
-		{
 			wait(NULL);
-			printf("done");
-		}
 		i++;
 	}
 	return(0);
