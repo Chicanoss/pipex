@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2021/12/21 12:54:44 by rgeral           ###   ########.fr       */
+/*   Updated: 2021/12/21 16:07:05 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,4 +163,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	res[i] = '\0';
 	return (res);
+}
+
+int	ft_memcmp(const void	*pointer1, const void	*pointer2, size_t	size)
+{
+	size_t			i;
+	unsigned char	*p1;
+	unsigned char	*p2;
+
+	p1 = (unsigned char *)pointer1;
+	p2 = (unsigned char *)pointer2;
+	i = 0;
+	while (i < size)
+	{
+		if (p1[i] != p2[i])
+			return ((unsigned char)p1[i] - (unsigned char)p2[i]);
+		i++;
+	}
+	return (0);
 }

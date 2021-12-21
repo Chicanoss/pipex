@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:00 by rgeral           ###   ########.fr       */
+/*   Updated: 2021/12/21 16:37:22 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,38 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+
+char	*i_shall_pass(char	**env)
+{
+	int	i;
+	char	**result;
+
+	i = 0;
+	while(env[i])
+	{
+		if(ft_memcmp(env[i], "PATH=", 5) == 0)
+		{
+			result = ft_split(&env[i][5], ':');
+			printf("%s\n", result[0]);
+
+			return(&env[i][5]);
+		}
+		i++;
+	}
+	return(NULL);
+
+}
+
 int main(int	argc, char	*argv[], char	*env[])
 {
 	char	**args;
 	char	*tmp;
-	int		status;
 	int		i;
+	char	*path;
 
 	i = 1;
+	path = i_shall_pass(env);
+	printf("%s\n", path);
 	while (i < argc)
 	{
 		pid_t pid = fork();
