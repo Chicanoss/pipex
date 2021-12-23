@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2021/12/21 18:43:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2021/12/23 17:06:47 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,75 +20,127 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
 char	**i_shall_path(char	**env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**result;
 
 	i = 0;
 	j = 0;
-	while(env[i])
+	while (env[i])
 	{
-		if(ft_memcmp(env[i], "PATH=", 5) == 0)
+		if (ft_memcmp(env[i], "PATH=", 5) == 0)
 		{
 			result = ft_split(&env[i][5], ':');
-			while(result[j])
+			while (result[j])
 			{
 				result[j] = ft_strjoin(result[j], "/");
 				j++;
 			}
-			return(result);
+			return (result);
 		}
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
-void	*care_child(char	**path, char	**argv, char	**env)
+void	mario_pipe_lover(int *tube, t_args *p, int nb)
+{
+	int	file;
+
+	if (nb == 2)
+	{
+		file = open(p->argv[1], 0);
+		close(tube[0]);
+		dup2(tube[1], 1);
+		dup2(file, 0);
+		close(tube[1]);
+		close(file);
+	}
+	else
+	{
+		file = open(p->argv[4], O_CREAT | O_TRUNC | O_WRONLY);
+		close(tube[1]);
+		dup2(tube[0], 0);
+		dup2(file, 1);
+		close(tube[0]);
+		close(file);
+	}
+}
+
+void	*care_child(t_args *p, int nb, int *tube)
 {
 	char	*tmp;
-	int		i;
 	int		j;
 	char	**args;
 
-	i = 1;
 	j = 0;
-	
-	while (path[j])
+	mario_pipe_lover(tube, p, nb);
+	args = ft_split(p->argv[nb], ' ');
+	while (p->path[j])
 	{	
-		args = ft_split(argv[i], ' ');
-		tmp = ft_strjoin(path[j], args[0]);
-		free(args[0]);
-		args[0] = tmp;
-		execve(args[0], args, env);
+		tmp = ft_strjoin(p->path[j], args[0]);
+		if (access(tmp, F_OK | X_OK) == 0)
+			break ;
+		free(tmp);
+		tmp = NULL;
 		j++;
 	}
-	return(NULL);
-		
+	if (tmp)
+	{
+		free(args[0]);
+		args[0] = tmp;
+		execve(args[0], args, p->env);
+	}
+	free(args);
+	return (NULL);
 }
 
-int main(int	argc, char	*argv[], char	*env[])
+void	*do_child_not_war(t_args	*p)
 {
 	int		i;
-	char	**path;
+	int		tube[2];
+	int		status;
+	pid_t	pid;
 
 	i = 1;
-	path = i_shall_path(env);
-	while (i < argc)
+	pipe(tube);
+	while (i++ < p->argc - 1)
 	{
-		pid_t pid = fork();
-		if (pid == -1) 
+		pid = fork();
+		if (pid == -1)
 		{
 			perror("fork");
-			return EXIT_FAILURE;
+			return (NULL);
 		}
-		else if(pid == 0)
-			care_child(path, argv, env);
-		else
-			wait(NULL);
-		i++;
+		else if (pid == 0)
+			care_child(p, i, tube);
 	}
-	return(0);
+	close(tube[0]);
+	close(tube[1]);
+	i = -1;
+	while (i++ < 2)
+		wait(&status);
+	return (NULL);
+}
+
+int	main(int argc, char *argv[], char *env[])
+{
+	int		i;
+	int		tube[2];
+	int		fd;
+	int		status;
+	t_args	test;
+
+	test.argv = argv;
+	test.env = env;
+	test.argc = argc;
+	if (argc != 5)
+		return (printf("Il faut 5 args\n") * 0);
+	test.path = i_shall_path(env);
+	if (!test.path)
+		return ((int) NULL);
+	do_child_not_war(&test);
+	return (0);
 }
