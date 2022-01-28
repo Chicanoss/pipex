@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:03:31 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/27 11:49:44 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:46:14 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ typedef struct s_arguments
 	char	**path;
 	char	**env;
 	int		argc;
+	pid_t	*pid;
+	int		j;
 }				t_args;
 
 char	**ft_split(char const *s, char c);

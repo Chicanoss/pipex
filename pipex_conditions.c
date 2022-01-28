@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/27 12:58:48 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/27 16:08:52 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 
 	if (i != p->argc - 1)
 	{
-		pipe(temp_tube);
+		if (pipe(temp_tube) == -1)
+			perror("pipe is riped\n");
 	}
-	pid = fork();
-	if (pid == -1)
+	p->pid[p->j] = fork();
+	if (p->pid[p->j] == -1)
 	{
 		perror("fork");
 		return ((int) NULL);
 	}
-	else if (pid == 0)
+	else if (p->pid[p->j] == 0)
 		care_child(p, i, tube, temp_tube);
 	if (i > 2)
 	{
