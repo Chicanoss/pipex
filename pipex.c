@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/29 17:52:43 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 16:05:31 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,19 @@ void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 		tmp = ft_strjoin(p->path[j], args[0]);
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
-		free(tmp);
+		free (tmp);
 		tmp = NULL;
+
 		j++;
 	}
-	printf("test");
 	if (tmp)
 	{
 		free(args[0]);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
-	printf("test");
-	free(args);
+	free_split(args);
+	//free_split(p->path);
 	return (NULL);
 }
 
@@ -128,5 +128,6 @@ int	main(int argc, char *argv[], char *env[])
 	if (!test.path)
 		return ((int) NULL);
 	do_child_not_war(&test);
+	free_split(test.path);
 	return (0);
 }

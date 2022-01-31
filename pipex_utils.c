@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/29 16:06:16 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 15:49:11 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,18 @@ size_t	ft_strlen(const char	*str)
 		i++;
 	}
 	return (i);
+}
+
+void	free_split(char	**split)
+{
+	int i;
+
+	i = 0;
+
+	while(split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

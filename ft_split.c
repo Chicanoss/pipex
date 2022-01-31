@@ -6,12 +6,13 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:57:54 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/29 17:40:05 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 11:01:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdlib.h>
+#include<stdio.h>
 
 size_t	ft_split_count(char const *s, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/29 17:50:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 15:51:06 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 	if (p->pid[p->j] == -1)
 	{
 		perror("fork");
-		return ((int) NULL);
+		exit(EXIT_FAILURE);
 	}
 	else if (p->pid[p->j] == 0)
 		care_child(p, i, tube, temp_tube);
@@ -44,7 +44,6 @@ int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 	tube[1] = temp_tube[1];
 	return (1);
 }
-
 int	ft_dup2(int a, int b)
 {
 	int	fd;
