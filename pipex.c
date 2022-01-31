@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/28 14:24:30 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/29 17:52:43 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,19 @@ char	**i_shall_path(char	**env)
 void	mario_pipe_lover(int *tube, int	*temp_tube, t_args *p, int nb)
 {
 	if (nb == 2)
+	{
+		if(open(p->argv[1], 0) == -1)
+		{
+			perror("no infile");
+			exit (EXIT_FAILURE);
+		}
+		else
 		start_process(tube, temp_tube, p);
+	}
 	else if (nb == p->argc - 2)
-		end_process (tube, temp_tube, p);
+		end_process (tube, p);
 	else
-		progress_process (tube, temp_tube, p);
+		progress_process (tube, temp_tube);
 }
 
 void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
@@ -73,12 +81,14 @@ void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 		tmp = NULL;
 		j++;
 	}
+	printf("test");
 	if (tmp)
 	{
 		free(args[0]);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
+	printf("test");
 	free(args);
 	return (NULL);
 }
@@ -89,7 +99,6 @@ void	*do_child_not_war(t_args *p)
 	int		tube[2];
 	int		temp_tube[2];
 	int		status;
-
 
 	i = 1;
 	p->j = 0;
@@ -116,7 +125,6 @@ int	main(int argc, char *argv[], char *env[])
 	test.path = i_shall_path(env);
 	test.j = 0;
 	test.pid = malloc(sizeof(int) * argc - 3);
-
 	if (!test.path)
 		return ((int) NULL);
 	do_child_not_war(&test);

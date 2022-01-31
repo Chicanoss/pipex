@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/27 16:08:52 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/29 17:50:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 
 int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 {
-	pid_t	pid;
-
 	if (i != p->argc - 1)
 	{
 		if (pipe(temp_tube) == -1)
@@ -69,7 +67,7 @@ void	start_process(int *tube, int	*temp_tube, t_args *p)
 	close(file);
 }
 
-void	progress_process(int *tube, int	*temp_tube, t_args *p)
+void	progress_process(int *tube, int	*temp_tube)
 {
 	ft_dup2(tube[0], 0);
 	ft_dup2(temp_tube[1], 1);
@@ -79,7 +77,7 @@ void	progress_process(int *tube, int	*temp_tube, t_args *p)
 	close(temp_tube[1]);
 }
 
-void	end_process(int	*tube, int	*temp_tube, t_args	*p)
+void	end_process(int	*tube, t_args	*p)
 {
 	int	file;
 

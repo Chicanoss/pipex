@@ -6,115 +6,13 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2021/12/21 17:53:17 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/29 16:06:16 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "pipex.h"
-
-size_t	ft_split_count(char const *s, char c)
-{
-	size_t	count;
-	size_t	i;
-	int		in_word;
-
-	i = 0;
-	count = 0;
-	in_word = 0;
-	while (s[i])
-	{
-		if (s[i] == c && in_word)
-			in_word = 0;
-		if (s[i] != c && !in_word)
-		{
-			count++;
-			in_word = 1;
-		}
-		i++;
-	}
-	return (count);
-}
-
-size_t	ft_word_len(const char *str, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	return (i);
-}
-
-void	free_all(char	**str)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		free (str[i]);
-		i++;
-	}
-	free (str);
-}
-
-char	**ft_pick_str(char	const *s, char c, char	**str_res, size_t	count)
-{
-	size_t	i;
-	size_t	j;
-	size_t	k;
-
-	j = 0;
-	i = 0;
-	while (j < count)
-	{
-		k = ft_word_len(&s[i], c);
-		str_res[j] = ft_substr(&s[i], 0, k);
-		if (!str_res[j])
-		{
-			free_all(str_res);
-		}
-		i += k;
-		while (s[i] && s[i] == c)
-			i++;
-		j++;
-	}
-	return (str_res);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**str_res;
-	size_t	w;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s[i] && s[i] == c)
-		i++;
-	w = ft_split_count(s, c);
-	str_res = ((char **)malloc((w + 1) * sizeof(char *)));
-	if (!str_res)
-		return (NULL);
-	str_res[w] = 0;
-	ft_pick_str(&s[i], c, str_res, w);
-	return (str_res);
-}
-
-size_t	ft_strlen(const char	*str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 char	*ft_substr(const char	*s, unsigned int start, size_t	len)
 {
@@ -165,14 +63,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-int	ft_memcmp(const void	*pointer1, const void	*pointer2, size_t	size)
+int	ft_memcmp(const void	*po1, const void	*po2, size_t	size)
 {
 	size_t			i;
 	unsigned char	*p1;
 	unsigned char	*p2;
 
-	p1 = (unsigned char *)pointer1;
-	p2 = (unsigned char *)pointer2;
+	p1 = (unsigned char *)po1;
+	p2 = (unsigned char *)po2;
 	i = 0;
 	while (i < size)
 	{
@@ -181,4 +79,16 @@ int	ft_memcmp(const void	*pointer1, const void	*pointer2, size_t	size)
 		i++;
 	}
 	return (0);
+}
+
+size_t	ft_strlen(const char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
