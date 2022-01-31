@@ -1,0 +1,41 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/21 14:59:20 by rgeral            #+#    #+#              #
+#    Updated: 2022/01/31 17:05:01 by rgeral           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME=pipex
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror -g3 -fsanitize=address
+RM=rm -f
+SRC = pipex.c\
+pipex_utils.c\
+pipex_conditions.c\
+ft_split.c\
+
+OBJ = $(SRC:.c=.o)
+HEADER_FILE = pipex.h
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(HEADER_FILE)
+	ar rcs $(NAME) $(OBJ)
+
+%.o: %.c $(HEADER_FILE)
+	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+clean:
+	$(RM) $(OBJ) $(OBJS_B)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: clean fclean all re

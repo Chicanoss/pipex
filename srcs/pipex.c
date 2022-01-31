@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 16:05:31 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 17:48:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,20 @@ void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 		tmp = ft_strjoin(p->path[j], args[0]);
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
-		free (tmp);
+		free(tmp);
 		tmp = NULL;
-
+		free(p->path[j]);
+		p->path[j] = NULL;
 		j++;
 	}
 	if (tmp)
 	{
-		free(args[0]);
+		//free(args[0]);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
 	free_split(args);
-	//free_split(p->path);
+	free_split(p->path);
 	return (NULL);
 }
 
@@ -115,6 +116,20 @@ void	*do_child_not_war(t_args *p)
 	return (NULL);
 }
 
+void	ft_print(t_args *p)
+{
+	int i;
+
+	i = 0;
+	while(p->path[i])
+	{
+		printf("%s\n" , p->path[i]);
+		p->path[i] = 0;
+		printf("%s\n" , p->path[i]);
+		i++;
+	}
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	t_args	test;
@@ -126,8 +141,10 @@ int	main(int argc, char *argv[], char *env[])
 	test.j = 0;
 	test.pid = malloc(sizeof(int) * argc - 3);
 	if (!test.path)
-		return ((int) NULL);
+		exit(EXIT_FAILURE);
 	do_child_not_war(&test);
+	free(test.pid);
+	//ft_print(&test);
 	free_split(test.path);
 	return (0);
 }

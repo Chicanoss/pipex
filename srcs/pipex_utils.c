@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 15:49:11 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 17:42:58 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "pipex.h"
 
-char	*ft_substr(const char	*s, unsigned int start, size_t	len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	i;

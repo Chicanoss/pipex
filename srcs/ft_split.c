@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:57:54 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 11:01:53 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/01/31 17:44:07 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ size_t	ft_word_len(const char *str, char c)
 	return (i);
 }
 
-void	free_all(char	**str)
+void	free_all(char **str)
 {
 	unsigned int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		free (str[i]);
+		free(str[i]);
 		i++;
 	}
-	free (str);
+	free(str);
 }
 
 char	**ft_pick_str(char	const *s, char c, char	**str_res, size_t	count)
