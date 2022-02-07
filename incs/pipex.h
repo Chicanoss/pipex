@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:03:31 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/01 16:05:53 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/07 20:54:39 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	start_process(int *tube, int	*temp_tube, t_args *p);
 void	progress_process(int *tube, int	*temp_tube);
 void	end_process(int	*tube, t_args	*p);
 int		child_generator(int *tube, int	*temp_tube, int i, t_args *p);
-void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube);
-void	free_split(char	**split);
+int		care_child(t_args *p, int nb, int *tube, int	*temp_tube);
 char	*ft_strdup(const char *src);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/07 12:32:47 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/07 20:28:30 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 	tube[1] = temp_tube[1];
 	return (1);
 }
+
 int	ft_dup2(int a, int b)
 {
 	int	fd;
@@ -83,6 +84,11 @@ void	end_process(int	*tube, t_args	*p)
 	int	file;
 
 	file = open(p->argv[p->argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0666);
+	if (file == -1)
+	{
+		perror("Bad outfile");
+		exit(EXIT_FAILURE);
+	}
 	close(tube[1]);
 	ft_dup2(tube[0], 0);
 	ft_dup2(file, 1);

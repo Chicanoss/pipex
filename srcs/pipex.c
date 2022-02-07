@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/07 17:29:16 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/07 20:58:32 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	mario_pipe_lover(int *tube, int	*temp_tube, t_args *p, int nb)
 {
 	if (nb == 2)
 	{
-		if(open(p->argv[1], 0) == -1)
+		if (open(p->argv[1], 0) == -1)
 		{
 			perror("no infile");
 			exit (EXIT_FAILURE);
 		}
 		else
-		start_process(tube, temp_tube, p);
+			start_process(tube, temp_tube, p);
 	}
 	else if (nb == p->argc - 2)
 		end_process (tube, p);
@@ -66,7 +66,7 @@ void	mario_pipe_lover(int *tube, int	*temp_tube, t_args *p, int nb)
 		progress_process (tube, temp_tube);
 }
 
-void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
+int	care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 {
 	char	*tmp;
 	int		j;
@@ -80,17 +80,19 @@ void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 		tmp = ft_strjoin(p->path[j], args[0]);
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
-		//free(tmp);
-		//tmp = NULL;
 		j++;
 	}
-	if (tmp)
+	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
+	{
+		perror("Invalid Path");
+		exit(EXIT_FAILURE);
+	}
+	else if (tmp)
 	{
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
-	//free_split(args);
-	return (NULL);
+	exit(EXIT_FAILURE);
 }
 
 void	*do_child_not_war(t_args *p)
@@ -115,20 +117,6 @@ void	*do_child_not_war(t_args *p)
 	return (NULL);
 }
 
-void	ft_print(t_args *p)
-{
-	int i;
-
-	i = 0;
-	while(p->path[i])
-	{
-		printf("%s\n" , p->path[i]);
-		p->path[i] = 0;
-		printf("%s\n" , p->path[i]);
-		i++;
-	}
-}
-
 int	main(int argc, char *argv[], char *env[])
 {
 	t_args	test;
@@ -141,13 +129,7 @@ int	main(int argc, char *argv[], char *env[])
 	test.pid = malloc(sizeof(int) * argc - 3);
 	if (!test.path)
 		exit(EXIT_FAILURE);
-	//dprintf(1, "%s\n" ,test.path[2]);
 	do_child_not_war(&test);
 	free(test.pid);
-	//ft_print(&test);
-	//free_split(test.path);
-	//free(test.path);
-	//dprintf(1, "test");
-	//sleep(15);
 	return (0);
 }
