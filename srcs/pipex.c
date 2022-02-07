@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 17:48:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/07 17:29:16 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**i_shall_path(char	**env)
 	int		i;
 	int		j;
 	char	**result;
+	char	*temp;
 
 	i = 0;
 	j = 0;
@@ -35,7 +36,9 @@ char	**i_shall_path(char	**env)
 			result = ft_split(&env[i][5], ':');
 			while (result[j])
 			{
+				temp = result[j];
 				result[j] = ft_strjoin(result[j], "/");
+				free(temp);
 				j++;
 			}
 			return (result);
@@ -77,20 +80,16 @@ void	*care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 		tmp = ft_strjoin(p->path[j], args[0]);
 		if (access(tmp, F_OK | X_OK) == 0)
 			break ;
-		free(tmp);
-		tmp = NULL;
-		free(p->path[j]);
-		p->path[j] = NULL;
+		//free(tmp);
+		//tmp = NULL;
 		j++;
 	}
 	if (tmp)
 	{
-		//free(args[0]);
 		args[0] = tmp;
 		execve(args[0], args, p->env);
 	}
-	free_split(args);
-	free_split(p->path);
+	//free_split(args);
 	return (NULL);
 }
 
@@ -142,9 +141,13 @@ int	main(int argc, char *argv[], char *env[])
 	test.pid = malloc(sizeof(int) * argc - 3);
 	if (!test.path)
 		exit(EXIT_FAILURE);
+	//dprintf(1, "%s\n" ,test.path[2]);
 	do_child_not_war(&test);
 	free(test.pid);
 	//ft_print(&test);
-	free_split(test.path);
+	//free_split(test.path);
+	//free(test.path);
+	//dprintf(1, "test");
+	//sleep(15);
 	return (0);
 }

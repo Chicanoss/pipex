@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 15:51:06 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/07 12:32:47 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	child_generator(int *tube, int	*temp_tube, int i, t_args *p)
 		exit(EXIT_FAILURE);
 	}
 	else if (p->pid[p->j] == 0)
+	{	
 		care_child(p, i, tube, temp_tube);
+	}
 	if (i > 2)
 	{
 		close(tube[0]);

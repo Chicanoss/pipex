@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/01/31 17:42:58 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/01 16:07:34 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, char const *s2)
 {
 	size_t	i;
 	size_t	j;
@@ -105,4 +105,24 @@ void	free_split(char	**split)
 		i++;
 	}
 	free(split);
+}
+
+char	*ft_strdup(const char *src)
+{
+	int		i;
+	size_t	len;
+	char	*dst;
+
+	i = 0;
+	len = ft_strlen(src);
+	dst = malloc((len + 1) * sizeof(char));
+	if (!dst)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
