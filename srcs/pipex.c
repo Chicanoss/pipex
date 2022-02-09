@@ -6,7 +6,7 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/07 20:58:32 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/08 10:07:29 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,11 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_args	test;
 
+	if (argc <= 4)
+	{
+		perror("Not enough args");
+		exit(EXIT_FAILURE);
+	}
 	test.argv = argv;
 	test.env = env;
 	test.argc = argc;
