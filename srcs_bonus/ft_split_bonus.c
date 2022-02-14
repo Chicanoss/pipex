@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:57:54 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 19:51:25 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/11 19:48:37 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/pipex.h"
+#include "../incs_bonus/pipex_bonus.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include<stdio.h>
 
 size_t	ft_split_count(char const *s, char c)
 {

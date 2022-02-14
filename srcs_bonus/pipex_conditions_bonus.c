@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_conditions.c                                 :+:      :+:    :+:   */
+/*   pipex_conditions_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 19:51:37 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/11 19:48:51 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <string.h>
 #include <fcntl.h>
-#include "../incs/pipex.h"
+#include "../incs_bonus/pipex_bonus.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 

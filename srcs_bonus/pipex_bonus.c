@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 19:56:12 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/11 19:48:53 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include <string.h>
 #include <fcntl.h>
-#include "../incs/pipex.h"
+#include "../incs_bonus/pipex_bonus.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -121,9 +121,9 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_args	test;
 
-	if (argc != 5)
+	if (argc <= 4)
 	{
-		perror("Fix ARGS number");
+		perror("Not enough args");
 		exit(EXIT_FAILURE);
 	}
 	test.argv = argv;
