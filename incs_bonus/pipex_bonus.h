@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 11:03:31 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 18:11:46 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/14 10:03:31 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	end_process(int	*tube, t_args	*p);
 int		child_generator(int *tube, int	*temp_tube, int i, t_args *p);
 int		care_child(t_args *p, int nb, int *tube, int	*temp_tube);
 char	*ft_strdup(const char *src);
+void	execute(t_args *p, char **args, int nb);
 
 #endif

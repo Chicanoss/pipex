@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:35:25 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 19:48:53 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/14 11:17:49 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,30 +68,13 @@ void	mario_pipe_lover(int *tube, int	*temp_tube, t_args *p, int nb)
 
 int	care_child(t_args *p, int nb, int *tube, int	*temp_tube)
 {
-	char	*tmp;
-	int		j;
 	char	**args;
 
-	j = 0;
 	mario_pipe_lover(tube, temp_tube, p, nb);
 	args = ft_split(p->argv[nb], ' ');
-	while (p->path[j])
-	{	
-		tmp = ft_strjoin(p->path[j], args[0]);
-		if (access(tmp, F_OK | X_OK) == 0)
-			break ;
-		j++;
-	}
-	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
-	{
-		perror("Invalid Path");
-		exit(EXIT_FAILURE);
-	}
-	else if (tmp)
-	{
-		args[0] = tmp;
+	if (access(args[0], F_OK | X_OK) == 0)
 		execve(args[0], args, p->env);
-	}
+	execute(p, args, nb);
 	exit(EXIT_FAILURE);
 }
 

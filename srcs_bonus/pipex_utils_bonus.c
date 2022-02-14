@@ -1,18 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rgeral <rgeral@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 10:59:36 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/11 19:48:58 by rgeral           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <string.h>
+#include <fcntl.h>
 #include "../incs_bonus/pipex_bonus.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
@@ -93,22 +87,27 @@ size_t	ft_strlen(const char	*str)
 	return (i);
 }
 
-char	*ft_strdup(const char *src)
+void	execute(t_args *p, char **args, int nb)
 {
-	int		i;
-	size_t	len;
-	char	*dst;
+	char	*tmp;
+	int		j;
 
-	i = 0;
-	len = ft_strlen(src);
-	dst = malloc((len + 1) * sizeof(char));
-	if (!dst)
-		return (NULL);
-	while (src[i] != '\0')
+	j = 0;
+	while (p->path[j])
 	{
-		dst[i] = src[i];
-		i++;
+		tmp = ft_strjoin(p->path[j], args[0]);
+		if (access(tmp, F_OK | X_OK) == 0)
+			break ;
+		j++;
 	}
-	dst[i] = '\0';
-	return (dst);
+	if (access(tmp, F_OK | X_OK) != 0 && nb < p->argc - 1)
+	{
+		perror("Invalid Path");
+		exit(EXIT_FAILURE);
+	}
+	else if (tmp)
+	{
+		args[0] = tmp;
+		execve(args[0], args, p->env);
+	}
 }
