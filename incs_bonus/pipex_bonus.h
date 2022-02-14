@@ -6,12 +6,12 @@
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:06:18 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/14 17:06:59 by rgeral           ###   ########.fr       */
+/*   Updated: 2022/02/14 17:10:13 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
-# define PIPEX_BONUSH
+# define PIPEX_BONUS_H
 # include <stdlib.h>
 
 typedef struct s_arguments
