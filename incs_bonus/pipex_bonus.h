@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgeral <rgeral@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 11:03:31 by rgeral            #+#    #+#             */
-/*   Updated: 2022/02/14 11:24:36 by rgeral           ###   ########.fr       */
+/*   Created: 2022/02/14 17:06:18 by rgeral            #+#    #+#             */
+/*   Updated: 2022/02/14 17:06:59 by rgeral           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUSH
 # include <stdlib.h>
 
 typedef struct s_arguments
